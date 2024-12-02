@@ -1,4 +1,3 @@
-
 package ru.job4j.bmb.services;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -21,13 +20,13 @@ public class TgRemoteService extends TelegramLongPollingBot {
     }
 
     @Override
-    public String getBotUsername() {
-        return botName;
+    public String getBotToken() {
+        return botToken;
     }
 
     @Override
-    public String getBotToken() {
-        return botToken;
+    public String getBotUsername() {
+        return botName;
     }
 
     @Override
@@ -35,11 +34,9 @@ public class TgRemoteService extends TelegramLongPollingBot {
         if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
-
             SendMessage message = new SendMessage();
             message.setChatId(chatId);
             message.setText("Вы написали: " + messageText);
-
             try {
                 execute(message);
             } catch (TelegramApiException e) {
