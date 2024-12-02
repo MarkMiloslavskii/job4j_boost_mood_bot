@@ -14,8 +14,8 @@ public class TgRemoteService extends TelegramLongPollingBot {
     private final String botName;
     private final String botToken;
 
-    public TgRemoteService(@Value("${telegram.bot.name}") String botName,
-                           @Value("${telegram.bot.token}") String botToken) {
+    public TgRemoteService(@Value("${Miloslavskii_job4j_bot}") String botName,
+                           @Value("${7490093951:AAFVLm4WQW3Uy0aoW2FXX2JfEZJM3we0SbE}") String botToken) {
         this.botName = botName;
         this.botToken = botToken;
     }
