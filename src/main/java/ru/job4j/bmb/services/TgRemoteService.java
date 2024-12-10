@@ -18,13 +18,14 @@ public class TgRemoteService extends TelegramLongPollingBot {
 
     private final String botName;
     private final String botToken;
-    static Map<String, String> MOOD_RESP = Map.of(
+    private static final Map<String, String> MOOD_RESP = Map.of(
             "lost_sock", "Носки — это коварные создания. Но не волнуйся, второй обязательно найдётся!",
             "cucumber", "Огурец тоже дело серьёзное! Главное, не мариноваться слишком долго.",
             "dance_ready", "Супер! Танцуй, как будто никто не смотрит. Или, наоборот, как будто все смотрят!",
             "need_coffee", "Кофе уже в пути! Осталось только подождать... И ещё немного подождать...",
             "sleepy", "Пора на боковую! Даже супергерои отдыхают, ты не исключение."
     );
+
 
     public TgRemoteService(@Value("${telegram.bot.name}") String botName,
                            @Value("${telegram.bot.token}") String botToken) {
@@ -33,13 +34,13 @@ public class TgRemoteService extends TelegramLongPollingBot {
     }
 
     @Override
-    public String getBotToken() {
-        return botToken;
+    public String getBotUsername() {
+        return botName;
     }
 
     @Override
-    public String getBotUsername() {
-        return botName;
+    public String getBotToken() {
+        return botToken;
     }
 
     @Override
@@ -54,7 +55,6 @@ public class TgRemoteService extends TelegramLongPollingBot {
             send(sendButtons(chatId));
         }
     }
-
     private void send(SendMessage message) {
         try {
             execute(message);
