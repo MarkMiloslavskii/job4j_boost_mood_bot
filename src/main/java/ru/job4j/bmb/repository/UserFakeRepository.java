@@ -11,6 +11,7 @@ import java.util.Map;
 @Profile("test")
 @Repository
 public class UserFakeRepository implements UserRepository {
+
     private Map<Long, User> userMap = new HashMap<>();
 
     @Override
