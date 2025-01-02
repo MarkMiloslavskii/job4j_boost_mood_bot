@@ -62,7 +62,6 @@ public class TgRemoteService extends TelegramLongPollingBot {
         }
     }
 
-
     void send(SendMessage message) {
         try {
             execute(message);
