@@ -5,17 +5,15 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "mb_user")
-public class User {
+@Table(name = "mb_mood")
+public class Mood {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "client_id")
-    private long clientId;
+    private String text;
 
-    @Column(name = "chat_id")
-    private long chatId;
+    private boolean good;
 
     public Long getId() {
         return id;
@@ -25,20 +23,20 @@ public class User {
         this.id = id;
     }
 
-    public long getChatId() {
-        return chatId;
+    public String getText() {
+        return text;
     }
 
-    public void setChatId(long chatId) {
-        this.chatId = chatId;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public long getClientId() {
-        return clientId;
+    public boolean isGood() {
+        return good;
     }
 
-    public void setClientId(long clientId) {
-        this.clientId = clientId;
+    public void setGood(boolean good) {
+        this.good = good;
     }
 
     @Override
@@ -49,12 +47,13 @@ public class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        User user = (User) o;
-        return Objects.equals(id, user.id);
+        Mood mood = (Mood) o;
+        return good == mood.good && Objects.equals(id, mood.id) && Objects.equals(text, mood.text);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, text, good);
     }
 }
+
