@@ -23,7 +23,6 @@ public class Mood {
         this.positive = positive;
     }
 
-    // Геттеры и сеттеры
     public String getName() {
         return name;
     }
