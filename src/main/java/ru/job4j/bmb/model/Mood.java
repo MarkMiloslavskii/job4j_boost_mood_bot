@@ -14,6 +14,31 @@ public class Mood {
     private String text;
 
     private boolean good;
+    private String name;
+
+    private boolean positive;
+
+    public Mood(String name, boolean positive) {
+        this.name = name;
+        this.positive = positive;
+    }
+
+    // Геттеры и сеттеры
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isPositive() {
+        return positive;
+    }
+
+    public void setPositive(boolean positive) {
+        this.positive = positive;
+    }
 
     public Long getId() {
         return id;
