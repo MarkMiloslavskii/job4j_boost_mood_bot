@@ -10,7 +10,7 @@ public class Content {
     private InlineKeyboardMarkup markup;
     private InputFile audio;
 
-    public Content(Long chatId) {
+    public Content(Long chatId, String message) {
         this.chatId = chatId;
     }
 
