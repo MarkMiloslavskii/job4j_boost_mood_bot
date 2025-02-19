@@ -1,6 +1,6 @@
 package ru.job4j.bmb.services;
 
-import org.telegram.telegrambots.meta.api.objects.Message;  // Исправленный импорт
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
