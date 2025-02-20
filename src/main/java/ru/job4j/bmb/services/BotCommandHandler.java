@@ -83,4 +83,7 @@ public class BotCommandHandler {
             return content;
         });
     }
+
+    public void receive(Content content) {
+    }
 }
