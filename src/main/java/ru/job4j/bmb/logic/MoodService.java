@@ -2,7 +2,7 @@ package ru.job4j.bmb.logic;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
-import org.jvnet.hk2.annotations.Service;
+import org.springframework.stereotype.Service;
 import ru.job4j.bmb.content.Content;
 import ru.job4j.bmb.model.Achievement;
 import ru.job4j.bmb.model.Mood;
@@ -42,10 +42,11 @@ public class MoodService {
     }
 
     public Content chooseMood(User user, Long moodId) {
-        Object mood = moodLogRepository.findMoodById(moodId)
+        Mood mood = (Mood) moodLogRepository.findMoodById(moodId)
                 .orElseThrow(() -> new IllegalArgumentException("Mood not found"));
         moodLogRepository.save(new MoodLog(user.getId(), mood));
         return recommendationEngine.recommendFor(user.getChatId(), moodId);
+
     }
 
     public Optional<Content> weekMoodLogCommand(long chatId, Long clientId) {
@@ -90,6 +91,14 @@ public class MoodService {
         String message = "Keep it up! Maintain a positive mood to earn rewards.";
         var content = new Content(chatId, message);
         return Optional.of(content);
+    }
+
+    public String getAwards(User value) {
+        return "No awards available.";
+    }
+
+    public String getMoodLog(User value, String period) {
+        return "Mood log for " + period + " is empty.";
     }
 }
 

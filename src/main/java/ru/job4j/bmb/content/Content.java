@@ -12,6 +12,11 @@ public class Content {
 
     public Content(Long chatId, String message) {
         this.chatId = chatId;
+        this.text = message;
+    }
+
+    public Content(Long chatId) {
+        this.chatId = chatId;
     }
 
     public Content() {
@@ -48,5 +53,13 @@ public class Content {
 
     public void setAudio(InputFile audio) {
         this.audio = audio;
+    }
+
+    public Long getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(Long chatId) {
+        this.chatId = chatId;
     }
 }

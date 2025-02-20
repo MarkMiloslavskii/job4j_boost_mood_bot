@@ -67,13 +67,13 @@ public class UserFakeRepository implements UserRepository {
     }
 
     @Override
-    public User findByClientId(Long clientId) {
-        return userMap.get(clientId);
+    public Optional<User> findByClientId(Long clientId) {
+        return Optional.ofNullable(userMap.get(clientId));
     }
 
     @Override
     public void add(User user) {
-
+        userMap.put(user.getClientId(), user);
     }
 
     @Override

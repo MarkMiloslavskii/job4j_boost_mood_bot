@@ -46,9 +46,13 @@ public class BotCommandHandler {
     }
 
     Optional<Content> handleCallback(CallbackQuery callback) {
-        var moodId = Long.valueOf(callback.getData());
-        var user = userRepository.findByClientId(callback.getFrom().getId());
-        return user.map(value -> moodService.chooseMood(value, moodId));
+        try {
+            var moodId = Long.parseLong(callback.getData());
+            var user = userRepository.findByClientId(callback.getFrom().getId());
+            return user.map(value -> moodService.chooseMood(value, moodId));
+        } catch (NumberFormatException e) {
+            return Optional.empty();
+        }
     }
 
     private Optional<Content> handleStartCommand(long chatId, Long clientId) {
@@ -56,7 +60,7 @@ public class BotCommandHandler {
         user.setClientId(clientId);
         user.setChatId(chatId);
         userRepository.save(user);
-        var content = new Content(user.getChatId());
+        var content = new Content(user.getChatId(), "Как настроение?");
         content.setText("Как настроение?");
         content.setMarkup(tgUI.buildMoodButtons());
         return Optional.of(content);
@@ -64,7 +68,7 @@ public class BotCommandHandler {
 
     private Optional<Content> handleMoodLog(Long clientId, String period) {
         var user = userRepository.findByClientId(clientId);
-        return user.vmap(value -> {
+        return user.map(value -> {
             var content = new Content(value.getChatId());
             content.setText("Лог настроений за " + period + ":\n" + moodService.getMoodLog(value, period));
             return content;
