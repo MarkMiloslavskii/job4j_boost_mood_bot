@@ -8,9 +8,8 @@ import ru.job4j.bmb.services.TelegramBotService;
 public class DIByDirectInjectMain {
     public static void main(String[] args) {
         try (var context = new AnnotationConfigApplicationContext("ru.job4j.bmb")) {
-            var handler = context.getBean(BotCommandHandler.class);
-            var tg = new TelegramBotService(handler);
-            tg.receive(new Content());
+            var tg = context.getBean(TelegramBotService.class);
+            tg.sent(new Content());
         }
     }
 }

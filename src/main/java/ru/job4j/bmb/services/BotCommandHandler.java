@@ -85,5 +85,6 @@ public class BotCommandHandler {
     }
 
     public void receive(Content content) {
+
     }
 }

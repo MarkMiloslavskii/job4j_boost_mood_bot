@@ -7,13 +7,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import ru.job4j.bmb.model.Award;
 import ru.job4j.bmb.model.Mood;
 import ru.job4j.bmb.model.MoodContent;
-import ru.job4j.bmb.services.TgRemoteService;
 
 import java.util.ArrayList;
 import java.util.List;

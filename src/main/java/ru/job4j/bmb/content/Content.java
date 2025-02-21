@@ -9,10 +9,24 @@ public class Content {
     private InputFile photo;
     private InlineKeyboardMarkup markup;
     private InputFile audio;
+    private ContentType type;
+
+    public ContentType getType() {
+        return type;
+    }
+
+    public void setType(ContentType type) {
+        this.type = type;
+    }
+
+    public enum ContentType {
+        TEXT, AUDIO, PHOTO
+    }
 
     public Content(Long chatId, String message) {
         this.chatId = chatId;
         this.text = message;
+        this.type = type;
     }
 
     public Content(Long chatId) {
