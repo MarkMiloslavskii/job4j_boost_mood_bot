@@ -14,7 +14,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.3.3</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <properties>
@@ -22,6 +22,13 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
@@ -85,6 +92,11 @@
             <artifactId>assertj-core</artifactId>
             <version>3.23.1</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.peterarsentev</groupId>
+            <artifactId>SpringFakeTest</artifactId>
+            <version>v.1.0.3</version>
         </dependency>
     </dependencies>
     <build>

@@ -1,7 +1,6 @@
 package ru.job4j.bmb.model;
 
 import jakarta.persistence.*;
-
 import java.time.Instant;
 import java.util.Objects;
 
@@ -13,16 +12,24 @@ public class MoodLog {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "mood_id")
+    @JoinColumn(name = "mood_id", nullable = false)
     private Mood mood;
 
+    @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP")
     private Instant createdAt;
 
-    public MoodLog(Long id, Object mood) {
+    public MoodLog() {
+        // Конструктор по умолчанию для JPA
+    }
+
+    public MoodLog(User user, Mood mood) {
+        this.user = user;
+        this.mood = mood;
+        this.createdAt = Instant.now();
     }
 
     public Long getId() {
@@ -66,7 +73,10 @@ public class MoodLog {
             return false;
         }
         MoodLog moodLog = (MoodLog) o;
-        return createdAt == moodLog.createdAt && Objects.equals(id, moodLog.id) && Objects.equals(user, moodLog.user) && Objects.equals(mood, moodLog.mood);
+        return Objects.equals(id, moodLog.id)
+                && Objects.equals(user, moodLog.user)
+                && Objects.equals(mood, moodLog.mood)
+                && Objects.equals(createdAt, moodLog.createdAt);
     }
 
     @Override
@@ -74,4 +84,3 @@ public class MoodLog {
         return Objects.hash(id, user, mood, createdAt);
     }
 }
-
