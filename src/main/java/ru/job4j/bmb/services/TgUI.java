@@ -3,6 +3,7 @@ package ru.job4j.bmb.services;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import ru.job4j.bmb.repository.MoodFakeRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +26,9 @@ public class TgUI {
     }
 
     private InlineKeyboardButton createBtn(String name, String data) {
-        var inline = new InlineKeyboardButton();
-        inline.setText(name);
-        inline.setCallbackData(data);
-        return inline;
+        InlineKeyboardButton button = new InlineKeyboardButton();
+        button.setText(name);
+        button.setCallbackData(data);
+        return button;
     }
 }
