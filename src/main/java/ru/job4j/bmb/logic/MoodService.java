@@ -13,7 +13,6 @@ import ru.job4j.bmb.repository.AchievementRepository;
 import ru.job4j.bmb.repository.MoodLogRepository;
 import ru.job4j.bmb.repository.UserRepository;
 
-import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -42,25 +41,25 @@ public class MoodService {
     }
 
     public Content chooseMood(User user, Long moodId) {
-        Mood mood = (Mood) moodLogRepository.findMoodById(moodId)
+        MoodLog moodLog = moodLogRepository.findMoodById(moodId)
                 .orElseThrow(() -> new IllegalArgumentException("Mood not found"));
+        Mood mood = moodLog.getMood();
         moodLogRepository.save(new MoodLog(user.getId(), mood));
         return recommendationEngine.recommendFor(user.getChatId(), moodId);
-
     }
 
     public Optional<Content> weekMoodLogCommand(long chatId, Long clientId) {
-        List<MoodLog> weekLogs = moodLogRepository.findLogsForPeriod(clientId, Duration.ofDays(7));
+        Instant startTime = Instant.now().minusSeconds(7 * 24 * 3600); // 7 дней
+        List<MoodLog> weekLogs = moodLogRepository.findLogsForPeriod(clientId, startTime);
         String message = formatMoodLogs(weekLogs, "Mood statistics for the week");
-        var content = new Content(chatId, message);
-        return Optional.of(content);
+        return Optional.of(new Content(chatId, message));
     }
 
     public Optional<Content> monthMoodLogCommand(long chatId, Long clientId) {
-        List<MoodLog> monthLogs = moodLogRepository.findLogsForPeriod(clientId, Duration.ofDays(30));
+        Instant startTime = Instant.now().minusSeconds(30 * 24 * 3600); // 30 дней
+        List<MoodLog> monthLogs = moodLogRepository.findLogsForPeriod(clientId, startTime);
         String message = formatMoodLogs(monthLogs, "Mood statistics for the month");
-        var content = new Content(chatId, message);
-        return Optional.of(content);
+        return Optional.of(new Content(chatId, message));
     }
 
     private String formatMoodLogs(List<MoodLog> logs, String title) {
@@ -69,14 +68,16 @@ public class MoodService {
         }
         var sb = new StringBuilder(title + ":\n");
         logs.forEach(log -> {
-            String formattedDate = formatter.format(Instant.ofEpochSecond(log.getCreatedAt()));
+            String formattedDate = formatter.format(log.getCreatedAt());
             sb.append(formattedDate).append(": ").append(log.getMood().getText()).append("\n");
         });
         return sb.toString();
     }
 
     public Optional<Content> awards(long chatId, Long clientId) {
-        List<MoodLog> logs = moodLogRepository.findLogsForPeriod(clientId, Duration.ofDays(7));
+        Instant startTime = Instant.now().minusSeconds(7 * 24 * 3600); // 7 дней
+        List<MoodLog> logs = moodLogRepository.findLogsForPeriod(clientId, startTime);
+
         long positiveMoodCount = logs.stream()
                 .filter(log -> log.getMood().isPositive())
                 .count();
@@ -84,13 +85,11 @@ public class MoodService {
         if (positiveMoodCount >= 5) {
             achievementRepository.save(new Achievement(clientId, "Good Mood Streak"));
             String message = "Congratulations! You have been awarded for maintaining a positive mood.";
-            var content = new Content(chatId, message);
-            return Optional.of(content);
+            return Optional.of(new Content(chatId, message));
         }
 
         String message = "Keep it up! Maintain a positive mood to earn rewards.";
-        var content = new Content(chatId, message);
-        return Optional.of(content);
+        return Optional.of(new Content(chatId, message));
     }
 
     public String getAwards(User value) {
@@ -101,4 +100,3 @@ public class MoodService {
         return "Mood log for " + period + " is empty.";
     }
 }
-
