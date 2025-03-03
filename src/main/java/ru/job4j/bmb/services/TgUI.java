@@ -15,6 +15,7 @@ public class TgUI {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
 
+        keyboard.add(List.of(createBtn("Good", "good_mood")));
         keyboard.add(List.of(createBtn("Потерял носок \uD83D\uDE22", "lost_sock")));
         keyboard.add(List.of(createBtn("Как огурец на полке \uD83D\uDE10", "cucumber")));
         keyboard.add(List.of(createBtn("Готов к танцам \uD83D\uDE04", "dance_ready")));

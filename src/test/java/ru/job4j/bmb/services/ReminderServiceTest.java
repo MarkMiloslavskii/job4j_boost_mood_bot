@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ReminderServiceTest {
 
-    interface SentContent {
+    interface SentContent extends ru.job4j.bmb.services.SentContent {
         void sent(Content content);
     }
 
@@ -44,7 +44,7 @@ class ReminderServiceTest {
         moodLogRepository.save(moodLog);
 
         TgUI tgUI = new TgUI();
-        new ReminderService((ru.job4j.bmb.services.SentContent) sentContent, moodLogRepository, tgUI).remindUsers();
+        new ReminderService(sentContent, moodLogRepository, tgUI).remindUsers();
 
         assertThat(result)
                 .isNotEmpty()

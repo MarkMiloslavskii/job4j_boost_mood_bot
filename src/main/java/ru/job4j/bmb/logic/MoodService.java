@@ -44,7 +44,7 @@ public class MoodService {
         MoodLog moodLog = moodLogRepository.findMoodById(moodId)
                 .orElseThrow(() -> new IllegalArgumentException("Mood not found"));
         Mood mood = moodLog.getMood();
-        moodLogRepository.save(new MoodLog(user.getId(), mood));
+        moodLogRepository.save(new MoodLog(user, mood));
         return recommendationEngine.recommendFor(user.getChatId(), moodId);
     }
 

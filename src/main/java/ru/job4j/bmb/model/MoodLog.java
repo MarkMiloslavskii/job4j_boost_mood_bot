@@ -1,34 +1,34 @@
 package ru.job4j.bmb.model;
 
 import jakarta.persistence.*;
+
 import java.time.Instant;
-import java.util.Objects;
 
 @Entity
-@Table(name = "mb_mood_log")
+@Table(name = "mood_log")
 public class MoodLog {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "mood_id", nullable = false)
+    @JoinColumn(name = "mood_id")
     private Mood mood;
 
-    @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP")
     private Instant createdAt;
-
-    public MoodLog() {
-    }
 
     public MoodLog(User user, Mood mood) {
         this.user = user;
         this.mood = mood;
         this.createdAt = Instant.now();
+    }
+
+    public MoodLog() {
     }
 
     public Long getId() {
@@ -61,25 +61,5 @@ public class MoodLog {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        MoodLog moodLog = (MoodLog) o;
-        return Objects.equals(id, moodLog.id)
-                && Objects.equals(user, moodLog.user)
-                && Objects.equals(mood, moodLog.mood)
-                && Objects.equals(createdAt, moodLog.createdAt);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, user, mood, createdAt);
     }
 }
