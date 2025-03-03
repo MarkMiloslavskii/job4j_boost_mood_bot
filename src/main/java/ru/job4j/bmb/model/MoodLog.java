@@ -2,6 +2,7 @@ package ru.job4j.bmb.model;
 
 import jakarta.persistence.*;
 
+import java.time.Instant;
 import java.util.Objects;
 
 @Entity
@@ -19,7 +20,7 @@ public class MoodLog {
     @JoinColumn(name = "mood_id")
     private Mood mood;
 
-    private long createdAt;
+    private Instant createdAt;
 
     public MoodLog(Long id, Object mood) {
     }
@@ -48,11 +49,11 @@ public class MoodLog {
         this.mood = mood;
     }
 
-    public long getCreatedAt() {
+    public Instant getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(long createdAt) {
+    public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
 

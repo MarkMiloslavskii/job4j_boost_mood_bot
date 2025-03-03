@@ -49,14 +49,14 @@ public class MoodService {
     }
 
     public Optional<Content> weekMoodLogCommand(long chatId, Long clientId) {
-        Instant startTime = Instant.now().minusSeconds(7 * 24 * 3600); // 7 дней
+        Instant startTime = Instant.now().minusSeconds(7 * 24 * 3600);
         List<MoodLog> weekLogs = moodLogRepository.findLogsForPeriod(clientId, startTime);
         String message = formatMoodLogs(weekLogs, "Mood statistics for the week");
         return Optional.of(new Content(chatId, message));
     }
 
     public Optional<Content> monthMoodLogCommand(long chatId, Long clientId) {
-        Instant startTime = Instant.now().minusSeconds(30 * 24 * 3600); // 30 дней
+        Instant startTime = Instant.now().minusSeconds(30 * 24 * 3600);
         List<MoodLog> monthLogs = moodLogRepository.findLogsForPeriod(clientId, startTime);
         String message = formatMoodLogs(monthLogs, "Mood statistics for the month");
         return Optional.of(new Content(chatId, message));
@@ -75,7 +75,7 @@ public class MoodService {
     }
 
     public Optional<Content> awards(long chatId, Long clientId) {
-        Instant startTime = Instant.now().minusSeconds(7 * 24 * 3600); // 7 дней
+        Instant startTime = Instant.now().minusSeconds(7 * 24 * 3600);
         List<MoodLog> logs = moodLogRepository.findLogsForPeriod(clientId, startTime);
 
         long positiveMoodCount = logs.stream()
