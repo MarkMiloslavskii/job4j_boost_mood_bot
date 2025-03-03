@@ -23,7 +23,6 @@ public class MoodLog {
     private Instant createdAt;
 
     public MoodLog() {
-        // Конструктор по умолчанию для JPA
     }
 
     public MoodLog(User user, Mood mood) {
